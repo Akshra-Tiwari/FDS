@@ -1,0 +1,119 @@
+.ai-card{
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+
+  border-radius:20px;
+
+  padding:24px;
+
+  color:var(--text);
+
+  min-height:auto;
+
+  box-shadow:var(--shadow);
+
+  transition:var(--transition);
+
+}
+
+.ai-card-header{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:20px;
+
+}
+
+.ai-card-header h3{
+
+  font-size:20px;
+
+  font-weight:700;
+
+  color:var(--text);
+
+}
+
+.ai-badge{
+
+  background:rgba(37,99,235,.15);
+
+  color:var(--primary);
+
+  padding:6px 12px;
+
+  border-radius:999px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+}
+
+.ai-insight{
+
+  margin-bottom:18px;
+
+  background:var(--surface-2);
+
+  border:1px solid var(--border);
+
+  padding:16px;
+
+  border-radius:14px;
+
+  color:var(--muted);
+
+  line-height:1.7;
+
+  font-size:15px;
+
+}
+
+.ai-stats{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:14px;
+
+}
+
+.ai-stat{
+
+  background:var(--surface-2);
+
+  border:1px solid var(--border);
+
+  padding:16px;
+
+  border-radius:14px;
+
+}
+
+.ai-stat-label{
+
+  font-size:13px;
+
+  color:var(--muted);
+
+  margin-bottom:6px;
+
+}
+
+.ai-stat-value{
+
+  font-size:24px;
+
+  font-weight:700;
+
+  color:var(--text);
+
+}

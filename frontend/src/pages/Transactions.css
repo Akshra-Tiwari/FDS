@@ -1,0 +1,367 @@
+.transactions-page{
+  min-height:100vh;
+
+  background:var(--bg);
+
+  padding:32px;
+
+  color:var(--text);
+}
+
+/* HEADER */
+
+.transactions-header{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-start;
+
+  gap:24px;
+
+  flex-wrap:wrap;
+
+  margin-bottom:30px;
+}
+
+.transactions-tag{
+  font-size:13px;
+
+  font-weight:700;
+
+  color:var(--primary);
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+
+  margin-bottom:10px;
+}
+
+.transactions-title{
+  font-size:40px;
+
+  font-weight:800;
+
+  color:var(--text);
+
+  margin-bottom:8px;
+}
+
+.transactions-subtitle{
+  color:var(--muted);
+
+  font-size:15px;
+
+  line-height:1.6;
+
+  max-width:700px;
+}
+
+/* ACTION BUTTONS */
+
+.header-actions{
+  display:flex;
+
+  gap:12px;
+
+  flex-wrap:wrap;
+}
+
+.refresh-btn,
+.export-btn,
+.theme-btn{
+
+  border:none;
+
+  background:var(--primary);
+
+  color:white;
+
+  padding:12px 18px;
+
+  border-radius:14px;
+
+  font-size:14px;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.25s ease;
+
+  min-width:130px;
+
+  margin: 4px;
+}
+
+.refresh-btn:hover,
+.export-btn:hover,
+.theme-btn:hover{
+
+  background:var(--primary-hover);
+
+  transform:translateY(-2px);
+}
+
+/* STATS */
+
+.transactions-stats{
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+
+  gap:18px;
+
+  margin-bottom:28px;
+}
+
+.transaction-stat-card{
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+
+  border-radius:20px;
+
+  padding:20px;
+
+  box-shadow:var(--shadow);
+}
+
+.transaction-stat-card h4{
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  margin-bottom:12px;
+}
+
+.transaction-stat-card h2{
+
+  font-size:32px;
+
+  font-weight:800;
+
+  color:var(--text);
+}
+
+/* FILTERS */
+
+.filters-section{
+
+  display:flex;
+
+  gap:16px;
+
+  align-items:center;
+
+  flex-wrap:wrap;
+
+  margin-bottom:28px;
+}
+
+.transactions-search,
+.transactions-filter{
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+
+  color:var(--text);
+
+  padding:14px 16px;
+
+  border-radius:14px;
+
+  font-size:14px;
+
+  outline:none;
+
+  transition:0.25s ease;
+}
+
+.transactions-search{
+  flex:1;
+  min-width:240px;
+}
+
+.transactions-search:focus,
+.transactions-filter:focus{
+
+  border-color:var(--primary);
+
+  box-shadow:
+    0 0 0 4px rgba(37,99,235,0.08);
+}
+
+/* TABLE */
+
+.transactions-table-box{
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+
+  border-radius:24px;
+
+  overflow-x:auto;
+
+  box-shadow:var(--shadow);
+}
+
+.transactions-table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+  min-width:900px;
+}
+
+.transactions-table thead{
+
+  background:var(--surface-2);
+}
+
+.transactions-table th{
+
+  text-align:left;
+
+  padding:18px;
+
+  font-size:13px;
+
+  color:var(--muted);
+
+  font-weight:700;
+
+  text-transform:uppercase;
+}
+
+.transactions-table td{
+
+  padding:18px;
+
+  border-top:1px solid var(--border-light);
+
+  font-size:14px;
+
+  color:var(--text);
+}
+
+.transactions-table tbody tr{
+
+  transition:0.2s ease;
+}
+
+.transactions-table tbody tr:hover{
+
+  background:rgba(37,99,235,0.04);
+}
+
+/* STATUS */
+
+.status-badge{
+
+  padding:8px 14px;
+
+  border-radius:999px;
+
+  font-size:12px;
+
+  font-weight:700;
+}
+
+.fraud-status{
+
+  background:var(--danger-bg);
+
+  color:var(--danger-text);
+}
+
+.safe-status{
+
+  background:var(--success-bg);
+
+  color:var(--success-text);
+}
+
+/* EMPTY */
+
+.table-empty{
+
+  padding:60px 20px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:15px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .transactions-page{
+    padding:20px;
+  }
+
+  .transactions-title{
+    font-size:30px;
+  }
+
+  .transactions-header{
+    flex-direction:column;
+  }
+
+  .header-actions{
+    width:100%;
+  }
+
+  .refresh-btn,
+  .export-btn,
+  .theme-btn{
+    width:100%;
+  }
+
+  .filters-section{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .transactions-search,
+  .transactions-filter{
+    width:100%;
+  }
+
+}
+.transactions-page.dark {
+
+  --bg:#0b1220;
+  --surface:#111827;
+  --surface-2:#172033;
+
+  --text:#f1f5f9;
+  --muted:#94a3b8;
+
+  --border:#243244;
+  --border-light:#1e293b;
+
+  --shadow:
+    0 10px 30px rgba(0,0,0,.45);
+
+  --success-bg:
+    rgba(34,197,94,.12);
+
+  --success-text:#4ade80;
+
+  --danger-bg:
+    rgba(239,68,68,.12);
+
+  --danger-text:#f87171;
+
+}
