@@ -365,3 +365,155 @@
   --danger-text:#f87171;
 
 }
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media (max-width:768px){
+
+  .transactions-page{
+    padding:16px;
+  }
+
+  /* Header */
+
+  .transactions-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:18px;
+  }
+
+  .transactions-title{
+    font-size:28px;
+    line-height:1.2;
+  }
+
+  .transactions-subtitle{
+    font-size:14px;
+  }
+
+  /* Buttons */
+
+  .header-actions{
+    width:100%;
+    display:grid;
+
+    grid-template-columns:
+      repeat(auto-fit,minmax(120px,1fr));
+
+    gap:10px;
+  }
+
+  .refresh-btn,
+  .export-btn,
+  .theme-btn{
+
+    width:100%;
+
+    min-width:unset;
+
+    padding:12px;
+  }
+
+  /* Stats */
+
+  .transactions-stats{
+
+    grid-template-columns:1fr;
+
+    gap:14px;
+  }
+
+  .transaction-stat-card{
+
+    padding:18px;
+  }
+
+  .transaction-stat-card h2{
+
+    font-size:26px;
+  }
+
+  /* Filters */
+
+  .filters-section{
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:12px;
+  }
+
+  .transactions-search,
+  .transactions-filter{
+
+    width:100%;
+
+    min-width:unset;
+  }
+
+  /* Table */
+
+  .transactions-table-box{
+
+    overflow-x:auto;
+
+    border-radius:18px;
+
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .transactions-table{
+
+    min-width:700px;
+  }
+
+  .transactions-table th,
+  .transactions-table td{
+
+    padding:14px;
+
+    font-size:13px;
+
+    white-space:nowrap;
+  }
+
+}
+
+
+/* EXTRA SMALL DEVICES */
+
+@media (max-width:480px){
+
+  .transactions-page{
+
+    padding:12px;
+  }
+
+  .transactions-title{
+
+    font-size:24px;
+  }
+
+  .transactions-tag{
+
+    font-size:11px;
+  }
+
+  .transaction-stat-card h2{
+
+    font-size:22px;
+  }
+
+  .transactions-table{
+
+    min-width:620px;
+  }
+
+  .status-badge{
+
+    padding:6px 10px;
+
+    font-size:11px;
+  }
+
+}
