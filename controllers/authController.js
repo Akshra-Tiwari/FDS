@@ -63,7 +63,7 @@ exports.registerUser = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error("REGISTER ERROR:", error);
 
     res.status(500).json({
       success: false,
@@ -77,6 +77,8 @@ exports.loginUser = async (req, res) => {
   try {
     let { email, password } = req.body;
 
+    console.log("LOGIN BODY:", req.body);
+
     email = email.trim().toLowerCase();
 
     if (!email || !password) {
@@ -89,22 +91,22 @@ exports.loginUser = async (req, res) => {
       email,
     });
 
+    console.log("USER FOUND:", !!user);
+
     if (!user) {
       return res.status(401).json({
         message: "Invalid credentials",
       });
     }
 
-    if (user.isFrozen) {
-      return res.status(403).json({
-        message: "Account frozen",
-      });
-    }
+    console.log("DB EMAIL:", user.email);
 
     const isMatch = await bcrypt.compare(
       password,
       user.password
     );
+
+    console.log("PASSWORD MATCH:", isMatch);
 
     if (!isMatch) {
       return res.status(401).json({
@@ -112,7 +114,14 @@ exports.loginUser = async (req, res) => {
       });
     }
 
+    console.log(
+      "JWT SECRET EXISTS:",
+      !!process.env.JWT_SECRET
+    );
+
     const token = generateToken(user._id);
+
+    console.log("LOGIN SUCCESS");
 
     res.status(200).json({
       success: true,
@@ -126,7 +135,7 @@ exports.loginUser = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error("LOGIN ERROR:", error);
 
     res.status(500).json({
       success: false,
