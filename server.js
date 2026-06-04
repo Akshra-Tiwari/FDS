@@ -92,7 +92,7 @@ const io =
 
 module.exports.io = io;
 
-
+console.log("MONGO_URI =", process.env.MONGO_URI);
 // DATABASE
 mongoose.connect(
   process.env.MONGO_URI
