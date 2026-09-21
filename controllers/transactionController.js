@@ -101,7 +101,7 @@ const getMLRiskScore =
       const mlResponse =
         await axios.post(
 
-        "${process.env.ML_API_URL}/predict",
+        '${process.env.ML_API_URL}/predict',
 
           {
 
