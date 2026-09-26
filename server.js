@@ -18,6 +18,9 @@ const aiRoutes =
 const receiptRoutes =
   require("./routes/receiptRoutes");
 
+const errorMiddleware =
+  require("./middleware/errorMiddleware");
+
 dotenv.config();
 
 const app = express();
@@ -66,6 +69,10 @@ app.use(
 );
 
 
+// ERROR HANDLER (must be registered after all routes)
+app.use(errorMiddleware);
+
+
 // SERVER
 const server =
   http.createServer(app);
@@ -92,7 +99,6 @@ const io =
 
 module.exports.io = io;
 
-console.log("MONGO_URI =", process.env.MONGO_URI);
 // DATABASE
 mongoose.connect(
   process.env.MONGO_URI

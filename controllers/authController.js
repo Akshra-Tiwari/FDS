@@ -77,8 +77,6 @@ exports.loginUser = async (req, res) => {
   try {
     let { email, password } = req.body;
 
-    console.log("LOGIN BODY:", req.body);
-
     email = email.trim().toLowerCase();
 
     if (!email || !password) {
@@ -91,22 +89,16 @@ exports.loginUser = async (req, res) => {
       email,
     });
 
-    console.log("USER FOUND:", !!user);
-
     if (!user) {
       return res.status(401).json({
         message: "Invalid credentials",
       });
     }
 
-    console.log("DB EMAIL:", user.email);
-
     const isMatch = await bcrypt.compare(
       password,
       user.password
     );
-
-    console.log("PASSWORD MATCH:", isMatch);
 
     if (!isMatch) {
       return res.status(401).json({
@@ -114,14 +106,14 @@ exports.loginUser = async (req, res) => {
       });
     }
 
-    console.log(
-      "JWT SECRET EXISTS:",
-      !!process.env.JWT_SECRET
-    );
+    if (user.isFrozen) {
+      return res.status(403).json({
+        message:
+          "This account has been frozen by an admin. Please contact support.",
+      });
+    }
 
     const token = generateToken(user._id);
-
-    console.log("LOGIN SUCCESS");
 
     res.status(200).json({
       success: true,
