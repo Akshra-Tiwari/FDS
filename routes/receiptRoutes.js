@@ -2,9 +2,15 @@ const express = require("express");
 
 const router = express.Router();
 
+const Tesseract = require("tesseract.js");
+
 const upload =
   require("../middleware/uploadMiddleware");
 
+// This route previously returned a hardcoded fake success message
+// without actually reading the uploaded image. It now runs real
+// OCR (same engine as /api/ocr/scan) and returns the fields the
+// frontend (ReceiptScanner.js) actually expects: message + detectedAmount.
 router.post(
   "/scan",
   upload.single("receipt"),
@@ -21,9 +27,23 @@ router.post(
 
       }
 
+      const result =
+        await Tesseract.recognize(
+          req.file.buffer,
+          "eng"
+        );
+
+      const text = result.data.text;
+
+      const amountMatch =
+        text.match(/\d+(\.\d{1,2})?/);
+
       res.status(200).json({
         success: true,
-        text: "Receipt scanned successfully"
+        message: "Receipt scanned successfully",
+        extractedText: text,
+        detectedAmount:
+          amountMatch ? amountMatch[0] : null
       });
 
     }

@@ -101,7 +101,7 @@ const getMLRiskScore =
       const mlResponse =
         await axios.post(
 
-        '${process.env.ML_API_URL}/predict',
+        `${process.env.ML_API_URL}/predict`,
 
           {
 
@@ -191,6 +191,20 @@ const createTransaction =
 
         throw new Error(
           "Amount, location and type are required"
+        );
+
+      }
+
+
+      // FROZEN ACCOUNT CHECK
+      if (
+        req.user.isFrozen
+      ) {
+
+        res.status(403);
+
+        throw new Error(
+          "This account has been frozen by an admin and cannot submit transactions"
         );
 
       }
@@ -916,6 +930,65 @@ const deleteTransaction =
 
 
 // =========================================
+// UPDATE TRANSACTION
+// (was imported by routes/transactionRoutes.js but never actually
+// defined here, so the PUT route would have crashed the server on
+// startup — implemented now)
+// =========================================
+
+const updateTransaction =
+  asyncHandler(
+    async (req, res) => {
+
+      const transaction =
+        await Transaction.findOne({
+
+          _id:
+            req.params.id,
+
+          userId:
+            req.user._id
+
+        });
+
+      if (!transaction) {
+
+        res.status(404);
+
+        throw new Error(
+          "Transaction not found"
+        );
+
+      }
+
+      const {
+        amount,
+        location,
+        type,
+        device
+      } = req.body;
+
+      if (amount !== undefined) transaction.amount = amount;
+      if (location !== undefined) transaction.location = location;
+      if (type !== undefined) transaction.type = type;
+      if (device !== undefined) transaction.device = device;
+
+      const updated =
+        await transaction.save();
+
+      res.status(200).json({
+
+        success: true,
+
+        transaction: updated
+
+      });
+
+    }
+  );
+
+
+// =========================================
 // ADMIN
 // =========================================
 
@@ -967,6 +1040,8 @@ module.exports = {
   getTransactionById,
 
   deleteTransaction,
+
+  updateTransaction,
 
   getAllTransactionsAdmin,
 

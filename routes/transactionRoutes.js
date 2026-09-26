@@ -60,6 +60,15 @@ router.get(
 );
 
 
+// GET FRAUD LOCATIONS (must come before "/:id" or Express will
+// treat "fraud-locations" as an :id parameter and never reach this route)
+router.get(
+  "/fraud-locations",
+  authMiddleware,
+  getFraudLocations
+);
+
+
 // GET SINGLE TRANSACTION
 router.get(
   "/:id",
@@ -67,16 +76,18 @@ router.get(
   getTransactionById
 );
 
+// UPDATE TRANSACTION
+router.put(
+  "/:id",
+  authMiddleware,
+  updateTransaction
+);
+
 // DELETE
 router.delete(
   "/:id",
   authMiddleware,
   deleteTransaction
-);
-router.get(
-  "/fraud-locations",
-  authMiddleware,
-  getFraudLocations
 );
 
 module.exports =
