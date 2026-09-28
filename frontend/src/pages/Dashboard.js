@@ -24,8 +24,16 @@ import SeverityPieChart from "../components/SeverityPieChart";
 import RiskBarChart from "../components/RiskBarChart";
 
 
+// Socket server = same host as the REST API (without the trailing /api).
+// Previously hardcoded to localhost, which broke live updates in production.
+const SOCKET_URL =
+(
+process.env.REACT_APP_API_URL ||
+"https://fds1-t172.onrender.com/api"
+).replace(/\/api\/?$/,"");
+
 const socket = io(
-"http://localhost:5000",
+SOCKET_URL,
 {
 reconnection:true,
 reconnectionAttempts:5,
