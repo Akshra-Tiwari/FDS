@@ -5,6 +5,14 @@ export default function Navbar() {
 
 const navigate=useNavigate();
 
+let currentUser=null;
+
+try{
+currentUser=JSON.parse(localStorage.getItem("user"));
+}catch(e){
+currentUser=null;
+}
+
 return(
 
 <nav className="navbar">
@@ -52,6 +60,18 @@ isActive ? "nav-button active-nav" : "nav-button"}
 >
 Transactions
 </NavLink>
+
+{currentUser?.role==="admin" && (
+
+<NavLink
+to="/admin"
+className={({isActive})=>
+isActive ? "nav-button active-nav" : "nav-button"}
+>
+Admin
+</NavLink>
+
+)}
 
 <button
 className="logout-nav-btn"

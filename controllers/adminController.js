@@ -33,31 +33,54 @@ const getAllUsers =
 };
 
 
-// FREEZE ACCOUNT
-const freezeUser =
+// FREEZE / UNFREEZE ACCOUNT
+const setFrozenState =
+  (frozen) =>
   async (req, res) => {
 
     try {
 
-      const user =
-        await User.findByIdAndUpdate(
-
-          req.params.id,
-
-          {
-            isFrozen: true
-          },
-
-          {
-            new: true
-          }
-
+      const target =
+        await User.findById(
+          req.params.id
         );
+
+      if (!target) {
+
+        return res.status(404).json({
+          message: "User not found"
+        });
+
+      }
+
+      // Admins cannot freeze themselves or other admins
+      if (
+        frozen &&
+        target.role === "admin"
+      ) {
+
+        return res.status(400).json({
+          message:
+            "Admin accounts cannot be frozen"
+        });
+
+      }
+
+      target.isFrozen = frozen;
+
+      await target.save();
+
+      // never send the password hash back to the client
+      const user =
+        await User.findById(target._id)
+          .select("-password");
 
       res.status(200).json({
 
         message:
-          "User frozen",
+          frozen
+            ? "User frozen"
+            : "User unfrozen",
 
         user
 
@@ -66,15 +89,18 @@ const freezeUser =
     } catch (error) {
 
       res.status(500).json({
-
-        message:
-          error.message
-
+        message: error.message
       });
 
     }
 
 };
+
+const freezeUser =
+  setFrozenState(true);
+
+const unfreezeUser =
+  setFrozenState(false);
 
 
 // ADMIN ANALYTICS
@@ -124,6 +150,8 @@ module.exports = {
   getAllUsers,
 
   freezeUser,
+
+  unfreezeUser,
 
   getAdminAnalytics
 
