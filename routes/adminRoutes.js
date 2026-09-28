@@ -13,6 +13,7 @@ const adminMiddleware =
 const {
   getAllUsers,
   freezeUser,
+  unfreezeUser,
   getAdminAnalytics
 } = require("../controllers/adminController");
 
@@ -32,6 +33,15 @@ router.put(
   authMiddleware,
   adminMiddleware,
   freezeUser
+);
+
+
+// UNFREEZE USER
+router.put(
+  "/unfreeze/:id",
+  authMiddleware,
+  adminMiddleware,
+  unfreezeUser
 );
 
 

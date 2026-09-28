@@ -18,6 +18,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import Profile from "./pages/Profile";
 
+import Admin from "./pages/Admin";
+
+import AdminRoute from "./components/AdminRoute";
+
 function App() {
 
   return (
@@ -90,6 +94,19 @@ function App() {
             }
             />
             
+          <Route
+            path="/admin"
+            element={
+
+              <AdminRoute>
+
+                <Admin />
+
+              </AdminRoute>
+
+            }
+            />
+
           <Route
             path="/transactions"
             element={

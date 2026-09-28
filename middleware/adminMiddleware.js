@@ -1,52 +1,21 @@
-const User =
-  require("../models/User");
-
+// authMiddleware has already loaded the full user (without password)
+// into req.user, so no second database lookup is needed here.
 const adminMiddleware =
-  async (req, res, next) => {
+  (req, res, next) => {
 
-    try {
+    if (
+      !req.user ||
+      req.user.role !== "admin"
+    ) {
 
-      const user =
-        await User.findById(
-          req.user
-        );
-
-      if (!user) {
-
-        return res.status(404).json({
-
-          message:
-            "User not found"
-
-        });
-
-      }
-
-      if (
-        user.role !== "admin"
-      ) {
-
-        return res.status(403).json({
-
-          message:
-            "Access denied. Admin only."
-
-        });
-
-      }
-
-      next();
-
-    } catch (error) {
-
-      res.status(500).json({
-
+      return res.status(403).json({
         message:
-          error.message
-
+          "Access denied. Admin only."
       });
 
     }
+
+    next();
 
   };
 
